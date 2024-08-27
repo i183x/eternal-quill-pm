@@ -1,0 +1,69 @@
+.competition-page {
+  padding: 20px;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.competition-page h2,
+.competition-page h3 {
+  color: #444;
+}
+
+.ongoing-competitions,
+.past-competitions {
+  margin-bottom: 30px;
+}
+
+.ongoing-competitions ul,
+.past-competitions ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ongoing-competitions ul li,
+.past-competitions ul li {
+  margin-bottom: 15px;
+}
+
+.ongoing-competitions ul li button,
+.past-competitions ul li button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ongoing-competitions ul li button:hover,
+.past-competitions ul li button:hover {
+  background-color: #0056b3;
+}
+
+.write-up-section {
+  margin-top: 20px;
+}
+
+.write-up-section textarea.write-up-input {
+  width: 100%;
+  height: 150px;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.write-up-section .submit-btn {
+  margin-top: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.write-up-section .submit-btn:hover {
+  background-color: #218838;
+}

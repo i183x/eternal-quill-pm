@@ -1,0 +1,97 @@
+/* Post container */
+.post {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Post title */
+.post h2 {
+  color: #343a40;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Post content */
+.post div {
+  color: #495057;
+  font-size: 18px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* Post actions (like, etc.) */
+.post-actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.post-actions button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.post-actions button:hover {
+  background-color: #0056b3;
+}
+
+/* Comments section */
+.comments-section {
+  margin-top: 40px;
+}
+
+.comments-section h3 {
+  color: #343a40;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.comments-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comments-section li {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.comments-section form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.comments-section input[type="text"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.comments-section button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.comments-section button[type="submit"]:hover {
+  background-color: #218838;
+}

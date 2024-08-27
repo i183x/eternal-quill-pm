@@ -1,0 +1,199 @@
+/* Container styling */
+.admin-dashboard {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #1c1c1c; /* Updated high contrast background */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  color: #f1f1f1; /* Light text for high contrast */
+}
+
+/* Title styling */
+.admin-dashboard h2 {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Section titles */
+.admin-dashboard h3 {
+  color: #e0e0e0;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+/* Navigation styling */
+.admin-dashboard nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.admin-dashboard nav ul li a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.admin-dashboard nav ul li a:hover {
+  background-color: #424242;
+  border-radius: 4px;
+}
+
+/* Form and input styling */
+.admin-dashboard input[type="text"],
+.admin-dashboard textarea,
+.admin-dashboard select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #424242; /* Darker input background */
+  color: #f1f1f1;
+}
+
+.admin-dashboard label {
+  display: block;
+  margin-bottom: 8px;
+  color: #b0b0b0;
+  font-weight: 500;
+}
+
+.admin-dashboard button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-dashboard button:hover {
+  background-color: #0056b3;
+}
+
+/* List styling */
+.admin-dashboard ul {
+  list-style: none;
+  padding: 0;
+}
+
+.admin-dashboard .list-item {
+  background-color: #424242;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-dashboard .item-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-dashboard .item-content p {
+  margin: 0;
+  font-size: 18px;
+  color: #f1f1f1;
+}
+
+.admin-dashboard .item-content a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.admin-dashboard .item-content a:hover {
+  text-decoration: underline;
+}
+
+/* Button alignment */
+.admin-dashboard .item-content button {
+  margin-left: auto; /* Push buttons to the right */
+  margin-top: 10px;
+}
+
+.admin-dashboard .list-item .item-content div {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+/* Panelist checkbox and label on the same line */
+.admin-dashboard #assign-panelists div {
+  display: flex;
+  align-items: center;
+}
+
+.admin-dashboard #assign-panelists input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.admin-dashboard #assign-panelists label {
+  margin: 0;
+}
+
+/* Full-width button for create competition */
+.admin-dashboard #create-competition button {
+  width: 100%;
+}
+
+/* Manage competitions styling */
+.manage-competitions .item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #444; /* Dark background for high contrast */
+  border-radius: 5px;
+}
+
+.manage-competitions button {
+  margin-right: 10px; /* Add space between buttons */
+}
+
+.manage-competitions .item-content button:last-child {
+  margin-right: 0;
+}
+
+/* Manage users and posts styling */
+.manage-users .item-content,
+.manage-posts .item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #444; /* Dark background for high contrast */
+  border-radius: 5px;
+}
+
+.manage-users .item-content button,
+.manage-posts .item-content button {
+  margin-left: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .admin-dashboard nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .admin-dashboard nav ul li {
+    margin-bottom: 10px;
+  }
+}

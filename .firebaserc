@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "eternalquill-pm",
+    "dev": "eternalquill-pm"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

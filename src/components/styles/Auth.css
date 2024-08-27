@@ -1,0 +1,99 @@
+/* Auth.css */
+
+.auth {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.auth h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.auth input[type="email"],
+.auth input[type="password"],
+.auth input[type="text"],
+.auth input[type="tel"],
+.auth textarea,
+.auth input[type="file"],
+.auth button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.auth input[type="email"]:focus,
+.auth input[type="password"]:focus,
+.auth input[type="text"]:focus,
+.auth input[type="tel"]:focus,
+.auth textarea:focus {
+  border-color: #333;
+  outline: none;
+}
+
+.auth textarea {
+  resize: none;
+  height: 100px;
+}
+
+.auth button {
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auth button:hover {
+  background-color: #555;
+}
+
+.auth button:focus {
+  outline: none;
+}
+
+.auth input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.auth label {
+  font-size: 14px;
+  color: #555;
+}
+
+.auth a {
+  color: #0066cc;  /* Set the color for links to blue */
+  text-decoration: none;
+}
+
+.auth a:hover {
+  text-decoration: underline;
+}
+
+.auth .error-message {
+  color: #e74c3c;
+  margin-bottom: 15px;
+}
+
+.auth .switch-auth {
+  background: none;
+  border: none;
+  color: #0066cc; /* Make the switch link blue */
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 0;
+  text-decoration: none;
+}
+
+.auth .switch-auth:hover {
+  text-decoration: underline;
+}

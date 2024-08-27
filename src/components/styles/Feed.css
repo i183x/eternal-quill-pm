@@ -1,0 +1,115 @@
+/* Feed container */
+.feed {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.feed h2 {
+  text-align: center;
+  color: #343a40;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Individual post container */
+.post {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Post title */
+.post h3 {
+  color: #007bff;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Post content preview */
+.post p {
+  color: #495057;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+/* Read More link */
+.post a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.post a:hover {
+  text-decoration: underline;
+}
+
+/* Post interaction buttons */
+.post button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-right: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.post button:hover {
+  background-color: #0056b3;
+}
+
+/* Comments section */
+.post h4 {
+  font-size: 18px;
+  margin-top: 20px;
+  color: #343a40;
+}
+
+.post p {
+  margin: 5px 0;
+}
+
+/* Comment form */
+.post form {
+  display: flex;
+  margin-top: 10px;
+}
+
+.post input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.post button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-left: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.post button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+/* Loading more posts */
+.feed p {
+  text-align: center;
+  color: #6c757d;
+  font-size: 16px;
+}

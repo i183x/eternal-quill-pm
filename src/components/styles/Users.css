@@ -1,0 +1,97 @@
+/* Users container */
+.users {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.users h2 {
+  color: #343a40;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* User list */
+.users ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* User list item */
+.users li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure space between username and follow button */
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.users li:hover {
+  background-color: #e9ecef;
+}
+
+/* User profile picture */
+.users img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+/* Username link */
+.users a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.users a:hover {
+  text-decoration: underline;
+}
+
+/* Follow button */
+.follow-btn {
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.follow-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .users li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .users img {
+    margin-bottom: 10px;
+  }
+
+  .users a {
+    font-size: 16px;
+  }
+
+  .follow-btn {
+    align-self: flex-end;
+    margin-top: 10px;
+  }
+}
