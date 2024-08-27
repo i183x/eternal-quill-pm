@@ -24,18 +24,13 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Authenticate with Firebase
-        env:
-          FIREBASE_TOKEN_CI_AUTH: ${{ secrets.FIREBASE_TOKEN_CI_AUTH }}
-        run: firebase login:ci --token $FIREBASE_TOKEN_CI_AUTH
-
       - name: Set Firebase Project Alias
-        run: firebase use dev --token $FIREBASE_TOKEN_CI_AUTH
+        run: firebase use dev --token ${{ secrets.FIREBASE_TOKEN_CI_AUTH }}
 
       - name: Build the project
         run: CI=false npm run build
 
       - name: Deploy to Firebase
         env:
-          FIREBASE_TOKEN_CI_AUTH: ${{ secrets.FIREBASE_TOKEN_CI_AUTH }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_CI_AUTH }}
         run: firebase deploy --only hosting --token $FIREBASE_TOKEN_CI_AUTH
