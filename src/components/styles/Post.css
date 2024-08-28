@@ -13,8 +13,25 @@
   color: #343a40;
   font-size: 28px;
   font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Post author */
+.post-author {
+  color: #6c757d;
+  font-size: 14px;
   margin-bottom: 20px;
   text-align: center;
+}
+
+.author-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.author-link:hover {
+  text-decoration: underline;
 }
 
 /* Post content */
@@ -66,8 +83,31 @@
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 10px;
+  position: relative;
 }
 
+.comment-highlight {
+  background-color: #d1ecf1;
+}
+
+.comment-timestamp {
+  display: block;
+  font-size: 12px;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+/* Author badge */
+.badge {
+  background-color: #ffc107;
+  color: #343a40;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+/* Add comment form */
 .comments-section form {
   display: flex;
   flex-direction: column;

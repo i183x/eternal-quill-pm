@@ -11,6 +11,8 @@ import Auth from './components/Auth';
 import Navbar from './components/Navbar';
 import Judges from './components/Judges';
 import CompetitionPage from './components/CompetitionPage';
+import CompetitionDetailPage from './components/CompetitionDetailPage';
+import RegistrationPage from './components/RegistrationPage';
 import { AuthProvider, useAuth } from './authContext';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from './firebase';
@@ -65,6 +67,8 @@ function App() {
               }
             />
             <Route path="/competitions" element={<CompetitionPage />} />
+            <Route path="/competitions/:competitionId" element={<CompetitionDetailPage />} />
+            <Route path="/register/:competitionId" element={<RegistrationPage />} />
             <Route path="/judges" element={<Judges />} />
             <Route path="/users" element={<Users />} />
             <Route path="/profile/:id" element={<Profile />} />

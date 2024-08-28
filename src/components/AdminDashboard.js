@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
-import { collection, getDocs, deleteDoc, doc, addDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { collection, getDocs, getDoc, deleteDoc, doc, addDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import './styles/AdminDashboard.css';
 
@@ -14,9 +14,24 @@ function AdminDashboard() {
     name: '',
     description: '',
     rules: '',
-    isPublic: true,
+    isPaid: false,
+    registrationCloseDate: '',
+    startDateTime: '',
     organisation: '',
-    subCategory: ''
+    subCategory: '',
+    customFields: {
+      fullName: true,
+      age: true,
+      gender: true,
+      email: true,
+      phone: true,
+      city: true,
+      country: true,
+      organization: true,
+      referralCode: false,
+      socialMedia: false,
+      uploadFile: false,
+    }
   });
   const [organisations, setOrganisations] = useState([]);
   const [selectedCompetitionId, setSelectedCompetitionId] = useState('');
@@ -43,37 +58,95 @@ function AdminDashboard() {
   }, []);
 
   const handleDeleteCompetition = async (competitionId) => {
-    await deleteDoc(doc(db, "competitions", competitionId));
-    setCompetitions(competitions.filter(competition => competition.id !== competitionId));
+    if (window.confirm("Are you sure you want to delete this competition?")) {
+      await deleteDoc(doc(db, "competitions", competitionId));
+      setCompetitions(competitions.filter(competition => competition.id !== competitionId));
+    }
   };
 
   const handleMarkAsComplete = async (competitionId) => {
-    await updateDoc(doc(db, "competitions", competitionId), {
-      isComplete: true
-    });
-    alert("Competition marked as complete!");
+    const competitionRef = doc(db, "competitions", competitionId);
+    const competitionSnap = await getDoc(competitionRef);
+
+    if (competitionSnap.exists() && !competitionSnap.data().isComplete) {
+      await updateDoc(competitionRef, {
+        isComplete: true
+      });
+      alert("Competition marked as complete!");
+      setCompetitions(competitions.map(comp => comp.id === competitionId ? { ...comp, isComplete: true } : comp));
+    } else {
+      alert("Competition is already marked as complete.");
+    }
   };
 
   const handleAnnounceWinners = async (competitionId, winners) => {
-    await updateDoc(doc(db, "competitions", competitionId), {
+    if (winners.length !== 3) {
+      alert("Please enter exactly 3 winner user IDs.");
+      return;
+    }
+
+    const competitionRef = doc(db, "competitions", competitionId);
+    await updateDoc(competitionRef, {
       winners: winners
     });
     alert("Winners announced!");
+    setCompetitions(competitions.map(comp => comp.id === competitionId ? { ...comp, winners } : comp));
+  };
+
+  const handleArchiveCompetition = async (competitionId) => {
+    const competitionRef = doc(db, "competitions", competitionId);
+    const competitionSnap = await getDoc(competitionRef);
+
+    if (competitionSnap.exists() && !competitionSnap.data().isArchived) {
+      await updateDoc(competitionRef, {
+        isArchived: true
+      });
+      alert("Competition archived!");
+      setCompetitions(competitions.map(comp => comp.id === competitionId ? { ...comp, isArchived: true } : comp));
+    } else {
+      alert("Competition is already archived.");
+    }
   };
 
   const handleCreateCompetition = async () => {
-    if (!newCompetition.isPublic && !newCompetition.organisation) {
-      alert("Please select or add an organisation for private competitions.");
+    if (!newCompetition.name || !newCompetition.description || !newCompetition.rules || !newCompetition.startDateTime || !newCompetition.registrationCloseDate) {
+      alert("Please fill out all required fields.");
       return;
     }
+
     await addDoc(collection(db, "competitions"), {
       ...newCompetition,
       createdAt: new Date(),
       isComplete: false,
+      isArchived: false,
       winners: [],
       panelists: []
     });
-    setNewCompetition({ name: '', description: '', rules: '', isPublic: true, organisation: '', subCategory: '' });
+
+    setNewCompetition({
+      name: '',
+      description: '',
+      rules: '',
+      isPaid: false,
+      registrationCloseDate: '',
+      startDateTime: '',
+      organisation: '',
+      subCategory: '',
+      customFields: {
+        fullName: true,
+        age: true,
+        gender: true,
+        email: true,
+        phone: true,
+        city: true,
+        country: true,
+        organization: true,
+        referralCode: false,
+        socialMedia: false,
+        uploadFile: false,
+      }
+    });
+
     const competitionsSnapshot = await getDocs(collection(db, "competitions"));
     setCompetitions(competitionsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
   };
@@ -103,13 +176,17 @@ function AdminDashboard() {
   };
 
   const handleDeleteUser = async (userId) => {
-    await deleteDoc(doc(db, "users", userId));
-    setUsers(users.filter(user => user.id !== userId));
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      await deleteDoc(doc(db, "users", userId));
+      setUsers(users.filter(user => user.id !== userId));
+    }
   };
 
   const handleDeletePost = async (postId) => {
-    await deleteDoc(doc(db, "posts", postId));
-    setPosts(posts.filter(post => post.id !== postId));
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      await deleteDoc(doc(db, "posts", postId));
+      setPosts(posts.filter(post => post.id !== postId));
+    }
   };
 
   const togglePanelistSelection = (panelistId) => {
@@ -118,6 +195,16 @@ function AdminDashboard() {
         ? prev.filter(id => id !== panelistId)
         : [...prev, panelistId]
     );
+  };
+
+  const handleFieldChange = (field) => {
+    setNewCompetition({
+      ...newCompetition,
+      customFields: {
+        ...newCompetition.customFields,
+        [field]: !newCompetition.customFields[field],
+      }
+    });
   };
 
   return (
@@ -145,54 +232,61 @@ function AdminDashboard() {
               placeholder="Competition Name"
               value={newCompetition.name}
               onChange={(e) => setNewCompetition({ ...newCompetition, name: e.target.value })}
+              required
             />
             <textarea
               placeholder="Description"
               value={newCompetition.description}
               onChange={(e) => setNewCompetition({ ...newCompetition, description: e.target.value })}
+              required
             />
             <textarea
               placeholder="Rules"
               value={newCompetition.rules}
               onChange={(e) => setNewCompetition({ ...newCompetition, rules: e.target.value })}
+              required
             />
             <label>
-              Public:
+              Paid:
               <input
-                type="radio"
-                checked={newCompetition.isPublic}
-                onChange={() => setNewCompetition({ ...newCompetition, isPublic: true, organisation: '', subCategory: '' })}
+                type="checkbox"
+                checked={newCompetition.isPaid}
+                onChange={() => setNewCompetition({ ...newCompetition, isPaid: !newCompetition.isPaid })}
               />
             </label>
             <label>
-              Private:
+              Registration Close Date:
               <input
-                type="radio"
-                checked={!newCompetition.isPublic}
-                onChange={() => setNewCompetition({ ...newCompetition, isPublic: false })}
+                type="datetime-local"
+                value={newCompetition.registrationCloseDate}
+                onChange={(e) => setNewCompetition({ ...newCompetition, registrationCloseDate: e.target.value })}
+                required
               />
-              {!newCompetition.isPublic && (
-                <>
-                  <select
-                    value={newCompetition.organisation}
-                    onChange={(e) => setNewCompetition({ ...newCompetition, organisation: e.target.value })}
-                  >
-                    <option value="">Select Organisation</option>
-                    {organisations.map(org => (
-                      <option key={org.id} value={org.id}>{org.name}</option>
-                    ))}
-                  </select>
-                  <button onClick={handleAddOrganisation}>Add Organisation</button>
-
-                  <input
-                    type="text"
-                    placeholder="Sub-Category (e.g., Club > Event)"
-                    value={newCompetition.subCategory}
-                    onChange={(e) => setNewCompetition({ ...newCompetition, subCategory: e.target.value })}
-                  />
-                </>
-              )}
             </label>
+            <label>
+              Start Date & Time:
+              <input
+                type="datetime-local"
+                value={newCompetition.startDateTime}
+                onChange={(e) => setNewCompetition({ ...newCompetition, startDateTime: e.target.value })}
+                required
+              />
+            </label>
+
+            <h4>Custom Fields for Registration:</h4>
+            <div className="custom-fields">
+              {Object.keys(newCompetition.customFields).map(field => (
+                <label key={field}>
+                  <input
+                    type="checkbox"
+                    checked={newCompetition.customFields[field]}
+                    onChange={() => handleFieldChange(field)}
+                  />
+                  {field.charAt(0).toUpperCase() + field.slice(1)}
+                </label>
+              ))}
+            </div>
+
             <button onClick={handleCreateCompetition}>Create Competition</button>
           </div>
 
@@ -207,6 +301,7 @@ function AdminDashboard() {
                     <div className="buttons-container">
                       <button onClick={() => handleMarkAsComplete(competition.id)}>Mark as Complete</button>
                       <button onClick={() => handleAnnounceWinners(competition.id, prompt("Enter the top 3 winner user IDs separated by commas:").split(','))}>Announce Winners</button>
+                      <button onClick={() => handleArchiveCompetition(competition.id)}>Archive</button>
                       <button onClick={() => handleDeleteCompetition(competition.id)}>Delete</button>
                     </div>
                   </div>

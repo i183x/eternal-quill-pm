@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { doc, getDoc, updateDoc, collection, addDoc, onSnapshot } from 'firebase/firestore';
 import DOMPurify from 'dompurify';
@@ -14,6 +14,8 @@ function Post() {
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const [author, setAuthor] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -21,8 +23,16 @@ function Post() {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setPost(docSnap.data());
-        setLikes(docSnap.data().likes || []);
+        const postData = docSnap.data();
+        setPost(postData);
+        setLikes(postData.likes || []);
+
+        // Fetch the author's information
+        const authorRef = doc(db, "users", postData.userId);
+        const authorSnap = await getDoc(authorRef);
+        if (authorSnap.exists()) {
+          setAuthor(authorSnap.data());
+        }
       } else {
         console.log("No such post!");
         setPost(null);
@@ -72,6 +82,10 @@ function Post() {
       return;
     }
 
+    if (isSubmitting) return; // Prevent multiple submissions
+
+    setIsSubmitting(true);
+
     try {
       const commentsRef = collection(db, "posts", id, "comments");
       await addDoc(commentsRef, {
@@ -82,6 +96,8 @@ function Post() {
       setNewComment('');
     } catch (error) {
       console.error("Error adding comment: ", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -98,11 +114,16 @@ function Post() {
   return (
     <div className="post">
       <h2>{post.title}</h2>
+      <p className="post-author">
+        By <Link to={`/profile/${post.userId}`} className="author-link">
+          {author ? author.username : 'Unknown Author'}
+        </Link>
+      </p>
       <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
 
       {/* Likes Section */}
       <div className="post-actions">
-        <button onClick={handleLike}>
+        <button onClick={handleLike} disabled={!currentUser}>
           {likes.includes(currentUser?.uid) ? 'Unlike' : 'Like'} ({likes.length})
         </button>
       </div>
@@ -113,8 +134,11 @@ function Post() {
         {comments.length > 0 ? (
           <ul>
             {comments.map(comment => (
-              <li key={comment.id}>
-                <strong>{comment.userId}</strong>: {comment.content}
+              <li key={comment.id} className={comment.userId === post.userId ? 'comment-highlight' : ''}>
+                <strong>{comment.userId}</strong>
+                {comment.userId === post.userId && <span className="badge">Author</span>}
+                : {comment.content}
+                <span className="comment-timestamp">{new Date(comment.createdAt.seconds * 1000).toLocaleString()}</span>
               </li>
             ))}
           </ul>
@@ -130,8 +154,9 @@ function Post() {
               placeholder="Add a comment..."
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
+              disabled={isSubmitting}
             />
-            <button type="submit">Comment</button>
+            <button type="submit" disabled={isSubmitting || !newComment.trim()}>Comment</button>
           </form>
         )}
       </div>

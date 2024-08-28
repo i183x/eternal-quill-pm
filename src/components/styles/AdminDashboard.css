@@ -50,7 +50,8 @@
 /* Form and input styling */
 .admin-dashboard input[type="text"],
 .admin-dashboard textarea,
-.admin-dashboard select {
+.admin-dashboard select,
+.admin-dashboard input[type="datetime-local"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
