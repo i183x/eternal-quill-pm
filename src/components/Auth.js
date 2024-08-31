@@ -59,13 +59,6 @@ function Auth() {
         return;
       }
 
-      // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
-      // if (!passwordRegex.test(password)) {
-      //   setErrorMessage("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
-      //   setLoading(false);
-      //   return;
-      // }
-
       if (password !== confirmPassword) {
         setErrorMessage("Passwords do not match.");
         setLoading(false);
@@ -98,7 +91,6 @@ function Auth() {
           const uploadResult = await uploadBytes(storageRef, profilePicture);
           profilePictureURL = await getDownloadURL(uploadResult.ref);
         } else {
-          // Set default profile picture if no picture is uploaded
           profilePictureURL = await getDownloadURL(ref(storage, 'profilePictures/anonymous_tie_profile_pic.jpeg'));
         }
 
@@ -144,87 +136,89 @@ function Auth() {
   };
 
   return (
-    <div className="auth">
-      <h2>{isSignup ? "Sign Up" : "Login"}</h2>
-      {errorMessage && <p className="error">{errorMessage}</p>}
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        autoFocus
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      {isSignup && (
-        <>
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <input
-            type="tel"
-            placeholder="Phone Number"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            required
-          />
-          <textarea
-            placeholder="Short Bio"
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            maxLength={300}
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setProfilePicture(e.target.files[0])}
-          />
-          {profilePicturePreview && (
-            <img
-              src={profilePicturePreview}
-              alt="Profile Preview"
-              className="profile-preview"
-            />
-          )}
-          <div>
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2>{isSignup ? "Sign Up" : "Login"}</h2>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          autoFocus
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        {isSignup && (
+          <>
             <input
-              type="checkbox"
-              checked={agreeToTerms}
-              onChange={() => setAgreeToTerms(!agreeToTerms)}
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
-            <label>
-              I agree to the{' '}
-              <Link to="/terms" target="_blank">
-                Terms and Conditions
-              </Link>
-            </label>
-          </div>
-        </>
-      )}
-      <button onClick={handleAuth} disabled={loading}>
-        {loading ? "Processing..." : isSignup ? "Sign Up" : "Login"}
-      </button>
-      <Link to="#" className="switch-auth" onClick={() => setIsSignup(!isSignup)}>
-        {isSignup ? "Switch to Login" : "Switch to Sign Up"}
-      </Link>
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <input
+              type="tel"
+              placeholder="Phone Number"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              required
+            />
+            <textarea
+              placeholder="Short Bio"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              maxLength={300}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setProfilePicture(e.target.files[0])}
+            />
+            {profilePicturePreview && (
+              <img
+                src={profilePicturePreview}
+                alt="Profile Preview"
+                className="profile-preview"
+              />
+            )}
+            <div className="terms-container">
+              <input
+                type="checkbox"
+                checked={agreeToTerms}
+                onChange={() => setAgreeToTerms(!agreeToTerms)}
+                required
+              />
+              <label>
+                I agree to the{' '}
+                <Link to="/terms" target="_blank" className="terms-link">
+                  Terms and Conditions
+                </Link>
+              </label>
+            </div>
+          </>
+        )}
+        <button onClick={handleAuth} disabled={loading} className="auth-button">
+          {loading ? "Processing..." : isSignup ? "Sign Up" : "Login"}
+        </button>
+        <Link to="#" className="switch-auth" onClick={() => setIsSignup(!isSignup)}>
+          {isSignup ? "Switch to Login" : "Switch to Sign Up"}
+        </Link>
+      </div>
     </div>
   );
 }

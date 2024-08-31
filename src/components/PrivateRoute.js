@@ -1,11 +1,23 @@
 // src/components/PrivateRoute.js
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../authContext';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
 
-function PrivateRoute({ component: Component, ...rest }) {
+// General Private Route for authenticated users
+export function GeneralPrivateRoute() {
+  const { currentUser } = useAuth();
+
+  if (!currentUser) {
+    return <Navigate to="/auth" />; // Redirect to the auth page if not logged in
+  }
+
+  return <Outlet />; // Allow access if authenticated
+}
+
+// Admin-specific Private Route
+export function AdminPrivateRoute() {
   const { currentUser } = useAuth();
   const [isAdmin, setIsAdmin] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
@@ -29,18 +41,9 @@ function PrivateRoute({ component: Component, ...rest }) {
     return <p>Loading...</p>;
   }
 
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        currentUser && isAdmin ? (
-          <Component {...props} />
-        ) : (
-          <Navigate to="/" /> // Redirect to homepage if not admin
-        )
-      }
-    />
-  );
-}
+  if (!currentUser || !isAdmin) {
+    return <Navigate to="/" />; // Redirect to homepage if not admin
+  }
 
-export default PrivateRoute;
+  return <Outlet />; // Allow access if admin
+}

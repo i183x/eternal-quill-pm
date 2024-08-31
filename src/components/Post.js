@@ -4,6 +4,7 @@ import { db } from '../firebase';
 import { doc, getDoc, updateDoc, collection, addDoc, onSnapshot } from 'firebase/firestore';
 import DOMPurify from 'dompurify';
 import { useAuth } from '../authContext';
+import LoginModal from './LoginModal';
 import './styles/Post.css';
 
 function Post() {
@@ -16,6 +17,7 @@ function Post() {
   const [newComment, setNewComment] = useState('');
   const [author, setAuthor] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -27,7 +29,6 @@ function Post() {
         setPost(postData);
         setLikes(postData.likes || []);
 
-        // Fetch the author's information
         const authorRef = doc(db, "users", postData.userId);
         const authorSnap = await getDoc(authorRef);
         if (authorSnap.exists()) {
@@ -54,7 +55,7 @@ function Post() {
 
   const handleLike = async () => {
     if (!currentUser) {
-      alert("You must be logged in to like a post.");
+      setIsModalVisible(true);
       return;
     }
 
@@ -73,7 +74,7 @@ function Post() {
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!currentUser) {
-      alert("You must be logged in to comment.");
+      setIsModalVisible(true);
       return;
     }
 
@@ -82,7 +83,7 @@ function Post() {
       return;
     }
 
-    if (isSubmitting) return; // Prevent multiple submissions
+    if (isSubmitting) return;
 
     setIsSubmitting(true);
 
@@ -101,6 +102,13 @@ function Post() {
     }
   };
 
+  const closeModal = () => setIsModalVisible(false);
+
+  const redirectToPost = () => {
+    closeModal();
+    window.location.reload();
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -116,26 +124,24 @@ function Post() {
       <h2>{post.title}</h2>
       <p className="post-author">
         By <Link to={`/profile/${post.userId}`} className="author-link">
-          {author ? author.username : 'Unknown Author'}
+          {author ? author.username : 'Anonymous'}
         </Link>
       </p>
       <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
 
-      {/* Likes Section */}
       <div className="post-actions">
-        <button onClick={handleLike} disabled={!currentUser}>
+        <button onClick={handleLike}>
           {likes.includes(currentUser?.uid) ? 'Unlike' : 'Like'} ({likes.length})
         </button>
       </div>
 
-      {/* Comments Section */}
       <div className="comments-section">
         <h3>Comments</h3>
         {comments.length > 0 ? (
           <ul>
             {comments.map(comment => (
               <li key={comment.id} className={comment.userId === post.userId ? 'comment-highlight' : ''}>
-                <strong>{comment.userId}</strong>
+                <strong>Anonymous</strong>
                 {comment.userId === post.userId && <span className="badge">Author</span>}
                 : {comment.content}
                 <span className="comment-timestamp">{new Date(comment.createdAt.seconds * 1000).toLocaleString()}</span>
@@ -146,7 +152,12 @@ function Post() {
           <p>No comments yet.</p>
         )}
 
-        {/* Add Comment */}
+        {!currentUser && (
+          <p className="login-to-comment">
+            <Link onClick={() => setIsModalVisible(true)}>Login to comment</Link>
+          </p>
+        )}
+
         {currentUser && (
           <form onSubmit={handleCommentSubmit}>
             <input
@@ -160,6 +171,8 @@ function Post() {
           </form>
         )}
       </div>
+
+      <LoginModal isVisible={isModalVisible} onClose={closeModal} redirectTo={redirectToPost} />
     </div>
   );
 }

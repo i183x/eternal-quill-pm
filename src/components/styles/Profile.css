@@ -1,55 +1,75 @@
+/* ./styles/Profile.css */
+
+/* Profile section container */
 .profile {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 20px auto;
   padding: 20px;
-  color: #f1f1f1;
-  background-color: #1e1e1e;
+  background-color: var(--background-color);
+  color: var(--text-color);
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Profile overview */
 .profile img {
-  width: 150px;
-  height: 150px;
+  display: block;
+  max-width: 150px;
+  max-height: 150px;
+  margin: 0 auto 20px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #f1f1f1;
-  margin-bottom: 20px;
+  border: 3px solid var(--accent-color);
 }
 
 .profile h2 {
-  font-size: 2rem;
+  font-size: 2.5rem;
+  text-align: center;
+  color: var(--text-color);
   margin-bottom: 10px;
-  color: #00aaff;
+  transition: color 0.3s ease;
 }
 
 .profile p {
-  font-size: 1rem;
-  margin-bottom: 10px;
+  font-size: 1.2rem;
+  text-align: center;
+  color: var(--secondary-color);
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
 }
 
+/* Follow and Edit Profile button styling */
 .profile button {
-  display: inline-block;
-  margin-top: 10px;
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto 20px;
   padding: 10px 20px;
-  font-size: 1rem;
-  color: #f1f1f1;
-  background-color: #00aaff;
+  background-color: var(--accent-color);
+  color: var(--background-color);
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .profile button:hover {
-  background-color: #0088cc;
+  background-color: var(--button-hover-bg-color);
+  transform: scale(1.05);
 }
 
+/* Posts section */
 .profile h3 {
-  font-size: 1.5rem;
+  font-size: 2rem;
+  color: var(--text-color);
   margin-top: 30px;
   margin-bottom: 20px;
-  color: #ffcc00;
+  text-align: center;
+  transition: color 0.3s ease;
+  font-weight: bold;
 }
 
 .profile ul {
@@ -58,43 +78,72 @@
 }
 
 .profile ul li {
-  background-color: #333;
-  padding: 20px;
+  background-color: var(--background-color);
   border-radius: 8px;
-  margin-bottom: 15px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.profile ul li:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .profile ul li h4 {
-  font-size: 1.25rem;
-  color: #f1f1f1;
+  font-size: 1.5rem;
+  color: var(--text-color);
   margin-bottom: 10px;
+  transition: color 0.3s ease;
 }
 
 .profile ul li p {
-  font-size: 1rem;
+  font-size: 1.1rem;
+  color: var(--secondary-color);
   margin-bottom: 10px;
-  color: #ccc;
+  transition: color 0.3s ease;
 }
 
 .profile ul li a {
-  color: #00aaff;
+  color: var(--accent-color);
   text-decoration: none;
   font-weight: bold;
-  margin-right: 15px;
+  transition: color 0.3s ease;
 }
 
 .profile ul li a:hover {
   text-decoration: underline;
+  color: var(--button-hover-bg-color);
 }
 
+/* Delete Post button */
 .profile ul li button {
-  background-color: #ff4d4d;
+  background-color: var(--danger-color);
+  color: var(--background-color);
   margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .profile ul li button:hover {
-  background-color: #ff0000;
+  background-color: var(--danger-hover-color);
+  transform: scale(1.05);
+}
+
+/* Edit Profile section */
+.edit-profile-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.edit-profile-buttons button {
+  width: 48%;
 }
 
 .profile input[type="text"],
@@ -102,23 +151,123 @@
   width: 100%;
   padding: 10px;
   margin: 10px 0;
-  border: 1px solid #ccc;
+  border: 1px solid var(--secondary-color);
   border-radius: 5px;
-  background-color: #333;
-  color: #f1f1f1;
+  background-color: var(--light-color);
+  color: var(--text-color);
   font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .profile input[type="file"] {
   margin: 10px 0;
 }
 
-.profile .edit-profile-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
+/* Dark Mode Adjustments */
+body.dark .profile {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-.profile .edit-profile-buttons button {
-  width: 48%;
+body.dark .profile img {
+  border-color: var(--button-bg-color-dark);
+}
+
+body.dark .profile h2 {
+  color: var(--text-color-dark);
+}
+
+body.dark .profile p {
+  color: var(--text-color-dark);
+}
+
+body.dark .profile h3 {
+  color: var(--text-color-dark);
+}
+
+body.dark .profile button {
+  background-color: var(--button-bg-color-dark);
+  color: var(--text-color-dark);
+}
+
+body.dark .profile button:hover {
+  background-color: var(--button-hover-bg-color-dark);
+}
+
+body.dark .profile ul li {
+  background-color: var(--background-color-dark);
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark .profile ul li:hover {
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+body.dark .profile ul li h4 {
+  color: var(--text-color-dark);
+}
+
+body.dark .profile ul li p {
+  color: var(--secondary-color-dark);
+}
+
+body.dark .profile ul li a {
+  color: var(--link-color-dark);
+}
+
+body.dark .profile ul li a:hover {
+  color: var(--button-hover-bg-color-dark);
+}
+
+body.dark .profile ul li button {
+  background-color: var(--danger-color-dark);
+  color: var(--text-color-dark);
+}
+
+body.dark .profile ul li button:hover {
+  background-color: var(--danger-hover-bg-color-dark);
+}
+
+body.dark .profile input[type="text"],
+body.dark .profile textarea {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+  border-color: var(--secondary-color-dark);
+}
+
+
+/* ./styles/Profile.css */
+
+/* Delete Post button */
+.profile ul li button {
+  background-color: #ff4d4d; /* Soft red for danger button */
+  color: #ffffff; /* White text color for visibility */
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 77, 77, 0.2); /* Soft shadow to lift the button */
+}
+
+.profile ul li button:hover {
+  background-color: #e60000; /* Slightly darker red on hover */
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(230, 0, 0, 0.4); /* Deeper shadow on hover */
+}
+
+/* Dark Mode adjustments for Delete Post button */
+body.dark .profile ul li button {
+  background-color: #e60000; /* Stronger red for dark mode */
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(230, 0, 0, 0.2);
+}
+
+body.dark .profile ul li button:hover {
+  background-color: #cc0000; /* Even darker red on hover in dark mode */
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(204, 0, 0, 0.4);
 }

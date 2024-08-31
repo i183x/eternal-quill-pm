@@ -3,31 +3,35 @@
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #f8f9fa;
+  background-color: var(--background-color);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Post title */
 .post h2 {
-  color: #343a40;
+  color: var(--text-color);
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 10px;
   text-align: center;
+  transition: color 0.3s ease;
 }
 
 /* Post author */
 .post-author {
-  color: #6c757d;
+  color: var(--secondary-color);
   font-size: 14px;
   margin-bottom: 20px;
   text-align: center;
+  transition: color 0.3s ease;
 }
 
 .author-link {
-  color: #007bff;
+  color: var(--accent-color);
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .author-link:hover {
@@ -36,10 +40,11 @@
 
 /* Post content */
 .post div {
-  color: #495057;
+  color: var(--text-color);
   font-size: 18px;
   line-height: 1.6;
   white-space: pre-wrap;
+  transition: color 0.3s ease;
 }
 
 /* Post actions (like, etc.) */
@@ -49,7 +54,7 @@
 }
 
 .post-actions button {
-  background-color: #007bff;
+  background-color: var(--accent-color);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -59,7 +64,7 @@
 }
 
 .post-actions button:hover {
-  background-color: #0056b3;
+  background-color: var(--button-hover-bg-color);
 }
 
 /* Comments section */
@@ -68,9 +73,10 @@
 }
 
 .comments-section h3 {
-  color: #343a40;
+  color: var(--text-color);
   font-size: 24px;
   margin-bottom: 20px;
+  transition: color 0.3s ease;
 }
 
 .comments-section ul {
@@ -79,32 +85,38 @@
 }
 
 .comments-section li {
-  background-color: #f1f1f1;
+  color: var(--text-color);
+  background-color: var(--background-color);
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 10px;
-  position: relative;
+  border: 1px solid var(--secondary-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .comment-highlight {
-  background-color: #d1ecf1;
+  background-color: var(--accent-color);
+  color: var(--text-color-dark);
+  transition: background-color 0.3s ease;
 }
 
 .comment-timestamp {
   display: block;
   font-size: 12px;
-  color: #6c757d;
+  color: var(--secondary-color);
   margin-top: 5px;
+  transition: color 0.3s ease;
 }
 
 /* Author badge */
 .badge {
-  background-color: #ffc107;
-  color: #343a40;
+  background-color: var(--accent-color);
+  color: var(--text-color-dark);
   padding: 3px 6px;
   border-radius: 4px;
   font-size: 12px;
   margin-left: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Add comment form */
@@ -117,13 +129,14 @@
 .comments-section input[type="text"] {
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--secondary-color);
   border-radius: 4px;
   font-size: 16px;
+  transition: border-color 0.3s ease;
 }
 
 .comments-section button[type="submit"] {
-  background-color: #28a745;
+  background-color: var(--success-color);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -133,5 +146,64 @@
 }
 
 .comments-section button[type="submit"]:hover {
-  background-color: #218838;
+  background-color: var(--success-color-dark);
+}
+
+/* Login to comment */
+.login-to-comment {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.login-to-comment a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.login-to-comment a:hover {
+  text-decoration: underline;
+}
+
+/* Dark Mode Adjustments */
+body.dark .post {
+  background-color: var(--background-color-dark);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+body.dark .post h2 {
+  color: var(--text-color-dark);
+}
+
+body.dark .comments-section li {
+  background-color: var(--background-color-dark);
+  border-color: var(--secondary-color);
+}
+
+body.dark .badge,
+body.dark .comment-highlight {
+  background-color: var(--button-bg-color-dark);
+  color: var(--text-color-dark);
+}
+
+body.dark .comment-timestamp {
+  color: var(--text-color-dark);
+}
+
+body.dark .comments-section button[type="submit"] {
+  background-color: var(--button-bg-color-dark);
+  color: var(--text-color-dark);
+}
+
+body.dark .comments-section button[type="submit"]:hover {
+  background-color: var(--button-hover-bg-color-dark);
+}
+
+body.dark .post div {
+  color: var(--text-color-dark);
+}
+
+body.dark .comments-section h3 {
+  color: var(--text-color-dark);
 }

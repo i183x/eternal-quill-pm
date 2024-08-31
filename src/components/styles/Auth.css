@@ -1,99 +1,241 @@
-/* Auth.css */
+/* ./styles/Auth.css */
 
-.auth {
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  max-width: 400px;
-  margin: 50px auto;
-  text-align: center;
+/* Base Container */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  transition: background-color 0.3s ease;
 }
 
-.auth h2 {
-  color: #333;
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-
-.auth input[type="email"],
-.auth input[type="password"],
-.auth input[type="text"],
-.auth input[type="tel"],
-.auth textarea,
-.auth input[type="file"],
-.auth button {
+.auth-card {
+  background-color: var(--background-color);
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 450px;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.auth input[type="email"]:focus,
-.auth input[type="password"]:focus,
-.auth input[type="text"]:focus,
-.auth input[type="tel"]:focus,
-.auth textarea:focus {
-  border-color: #333;
+/* Heading Styling */
+.auth-card h2 {
+  color: var(--text-color);
+  font-size: 32px;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  transition: color 0.3s ease;
+}
+
+/* Input Fields */
+.auth-card input[type="email"],
+.auth-card input[type="password"],
+.auth-card input[type="text"],
+.auth-card input[type="tel"],
+.auth-card textarea,
+.auth-card input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--secondary-color);
+  font-size: 16px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.auth-card input[type="email"]:focus,
+.auth-card input[type="password"]:focus,
+.auth-card input[type="text"]:focus,
+.auth-card input[type="tel"]:focus,
+.auth-card textarea:focus {
+  border-color: var(--accent-color);
   outline: none;
 }
 
-.auth textarea {
+.auth-card textarea {
   resize: none;
   height: 100px;
 }
 
-.auth button {
-  background-color: #333;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s;
+/* Profile Picture Preview */
+.profile-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 10px 0 20px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.auth button:hover {
-  background-color: #555;
+/* Terms and Conditions */
+.terms-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.auth button:focus {
-  outline: none;
-}
-
-.auth input[type="checkbox"] {
+.terms-container input[type="checkbox"] {
   margin-right: 10px;
+  transform: scale(1.2);
+  cursor: pointer;
 }
 
-.auth label {
+.terms-container label {
   font-size: 14px;
-  color: #555;
+  color: var(--text-color);
+  transition: color 0.3s ease;
 }
 
-.auth a {
-  color: #0066cc;  /* Set the color for links to blue */
+.terms-link {
+  color: var(--accent-color);
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.auth a:hover {
-  text-decoration: underline;
+.terms-link:hover {
+  color: var(--text-color);
 }
 
-.auth .error-message {
+/* Error Message */
+.error-message {
   color: #e74c3c;
   margin-bottom: 15px;
-}
-
-.auth .switch-auth {
-  background: none;
-  border: none;
-  color: #0066cc; /* Make the switch link blue */
   font-size: 14px;
-  cursor: pointer;
-  margin-top: 10px;
-  padding: 0;
-  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.auth .switch-auth:hover {
-  text-decoration: underline;
+/* Auth Button */
+.auth-button {
+  background-color: var(--accent-color);
+  color: #fff;
+  padding: 12px;
+  margin-top: 10px;
+  width: 100%;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.auth-button:hover {
+  background-color: var(--button-hover-bg-color);
+  transform: translateY(-2px);
+}
+
+.auth-button:active {
+  transform: scale(0.98);
+}
+
+.auth-button:disabled {
+  background-color: var(--secondary-color);
+  cursor: not-allowed;
+}
+
+/* Switch Auth */
+.switch-auth {
+  margin-top: 20px;
+  font-size: 16px;
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.switch-auth:hover {
+  color: var(--text-color);
+}
+
+/* Dark Mode Adjustments */
+body.dark .auth-container {
+  background-color: var(--background-color-dark);
+}
+
+body.dark .auth-card {
+  background-color: var(--background-color-dark);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+body.dark .auth-card h2 {
+  color: var(--text-color-dark);
+}
+
+body.dark .auth-card input[type="email"],
+body.dark .auth-card input[type="password"],
+body.dark .auth-card input[type="text"],
+body.dark .auth-card input[type="tel"],
+body.dark .auth-card textarea,
+body.dark .auth-card input[type="file"] {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+  border-color: var(--secondary-color-dark);
+}
+
+body.dark .auth-card input[type="email"]:focus,
+body.dark .auth-card input[type="password"]:focus,
+body.dark .auth-card input[type="text"]:focus,
+body.dark .auth-card input[type="tel"]:focus,
+body.dark .auth-card textarea:focus {
+  border-color: var(--accent-color);
+}
+
+body.dark .terms-container label {
+  color: var(--text-color-dark);
+}
+
+body.dark .error-message {
+  color: #ff6b6b;
+}
+
+body.dark .switch-auth {
+  color: var(--link-color-dark);
+}
+
+body.dark .auth-button {
+  background-color: var(--button-bg-color-dark);
+}
+
+body.dark .auth-button:hover {
+  background-color: var(--button-hover-bg-color-dark);
+}
+
+body.dark .terms-link {
+  color: var(--link-color-dark);
+}
+
+body.dark .terms-link:hover {
+  color: var(--text-color-dark);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .auth-card {
+    padding: 20px;
+  }
+
+  .auth-card h2 {
+    font-size: 28px;
+  }
+
+  .auth-card input[type="email"],
+  .auth-card input[type="password"],
+  .auth-card input[type="text"],
+  .auth-card input[type="tel"],
+  .auth-card textarea,
+  .auth-button {
+    font-size: 16px;
+  }
+
+  .switch-auth {
+    font-size: 14px;
+  }
+
+  .auth-card input[type="checkbox"] {
+    transform: scale(1.1);
+  }
 }

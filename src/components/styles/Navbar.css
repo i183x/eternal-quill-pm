@@ -1,35 +1,55 @@
+/* ./styles/Navbar.css */
+
 .navbar {
   padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--navbar-bg-color); /* Adjust background color to match the theme */
+  transition: background-color 0.3s ease;
 }
 
 .navbar-brand {
   font-size: 24px;
+  color: var(--accent-color);
 }
 
 .nav-link {
-  color: #fff !important;
+  color: var(--navbar-text-color) !important;
   padding: 10px 15px;
   text-align: center;
-  width: 100%;
 }
 
-.nav-item {
-  width: 100%;
-}
 .nav-link:hover {
-  background-color: #555;
+  background-color: var(--accent-color);
   border-radius: 5px;
 }
 
-.btn-theme-toggle,
+.nav-item {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.btn-theme-toggle {
+  display: flex;
+  align-items: center;
+}
+
 .btn-signout {
   background: none;
   border: none;
-  color: #fff;
-  cursor: pointer;
+  color: var(--navbar-text-color);
   padding: 10px 15px;
-  width: 100%;
-  text-align: center;
+  cursor: pointer;
+}
+
+/* Fix for Sign Out button removing the box */
+.btn-signout:hover {
+  background-color: var(--accent-color);
 }
 
 @media screen and (max-width: 768px) {
@@ -45,9 +65,36 @@
     margin-bottom: 10px;
   }
 
-  .nav-links,
+  .nav-link,
   .btn-theme-toggle,
   .btn-signout {
     padding: 15px;
   }
+}
+
+/* Custom hamburger icon */
+.navbar-toggler {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: no-repeat center center;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+body.dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Ensure navbar stays fixed when scrolling */
+body {
+  padding-top: 70px; /* Add padding equal to the navbar height to avoid content overlap */
 }

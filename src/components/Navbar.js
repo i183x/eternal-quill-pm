@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../authContext';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
-import './styles/Navbar.css'; // Keep your custom CSS
+import './styles/Navbar.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
 function Navbar() {
   const { currentUser } = useAuth();
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
+  useEffect(() => {
+    document.body.className = theme; // Apply the theme to the body
+  }, [theme]);
 
   const handleSignOut = async () => {
     try {
@@ -18,50 +25,58 @@ function Navbar() {
   };
 
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-    document.body.className = theme;  // Apply theme to body element
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.body.className = newTheme; // Apply the theme to the body
+    localStorage.setItem('theme', newTheme); // Save the user's theme preference
   };
 
+  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
+
+  const closeNav = () => setIsNavCollapsed(true);
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg">
       <div className="container">
         <Link to="/" className="navbar-brand">
           Eternal Quill
         </Link>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          className="navbar-toggler"
+          type="button"
+          aria-controls="navbarNav"
+          aria-expanded={!isNavCollapsed ? true : false}
+          aria-label="Toggle navigation"
+          onClick={handleNavCollapse}
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse`} id="navbarNav">
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to="/feed" className="nav-link">
-                Feed
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/write" className="nav-link">
-                Write
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/users" className="nav-link">
-                Users
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/competitions" className="nav-link">
-                Competitions
-              </Link>
-            </li>
-            <li className="nav-item">
-              <button onClick={toggleTheme} className="nav-link btn-theme-toggle">
-                {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
-              </button>
-            </li>
             {currentUser ? (
               <>
                 <li className="nav-item">
-                  <Link to={`/profile/${currentUser.uid}`} className="nav-link">
+                  <Link to="/feed" className="nav-link" onClick={closeNav}>
+                    Feed
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/write" className="nav-link" onClick={closeNav}>
+                    Write
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/users" className="nav-link" onClick={closeNav}>
+                    Users
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/competitions" className="nav-link" onClick={closeNav}>
+                    Competitions
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={`/profile/${currentUser.uid}`} className="nav-link" onClick={closeNav}>
                     Profile
                   </Link>
                 </li>
@@ -72,14 +87,26 @@ function Navbar() {
                 </li>
               </>
             ) : (
-              <>
-                <li className="nav-item">
-                  <Link to="/auth" className="nav-link">
-                    Login/Signup
-                  </Link>
-                </li>
-              </>
+              <li className="nav-item">
+                <Link to="/auth" className="nav-link" onClick={closeNav}>
+                  Login/Signup
+                </Link>
+              </li>
             )}
+            <li className="nav-item">
+              <input
+                type="checkbox"
+                className="checkbox"
+                id="checkbox"
+                onChange={toggleTheme}
+                checked={theme === 'dark'}
+              />
+              <label htmlFor="checkbox" className="checkbox-label">
+                <FontAwesomeIcon icon={faMoon} />
+                <FontAwesomeIcon icon={faSun} />
+                <span className="ball"></span>
+              </label>
+            </li>
           </ul>
         </div>
       </div>

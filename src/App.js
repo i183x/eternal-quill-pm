@@ -14,36 +14,14 @@ import CompetitionPage from './components/CompetitionPage';
 import CompetitionDetailPage from './components/CompetitionDetailPage';
 import RegistrationPage from './components/RegistrationPage';
 import { AuthProvider, useAuth } from './authContext';
-import { getDoc, doc } from 'firebase/firestore';
-import { db } from './firebase';
+import { AdminPrivateRoute, GeneralPrivateRoute } from './components/PrivateRoute';
 
-
-function AdminRoute({ children }) {
-  const { currentUser } = useAuth();
-  const [isAdmin, setIsAdmin] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    const checkAdmin = async () => {
-      if (currentUser) {
-        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          setIsAdmin(userData.role === 'admin');
-        }
-      }
-      setLoading(false);
-    };
-
-    checkAdmin();
-  }, [currentUser]);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  return currentUser && isAdmin ? children : <Navigate to="/" />;
-}
+import UserManagement from './components/admin/UserManagement';
+import Settings from './components/admin/Settings';
+import Analytics from './components/admin/Analytics';
+import ContentModeration from './components/admin/ContentModeration';
+import Notifications from './components/admin/Notifications';
+import SecurityLogs from './components/admin/SecurityLogs';
 
 function App() {
   return (
@@ -52,31 +30,36 @@ function App() {
         <Navbar />
         <div className="App">
           <Routes>
-            <Route
-              path="/"
-              element={
-                <HomeRoute />
-              }
-            />
-            <Route
-              path="/admin"
-              element={
-                <AdminRoute>
-                  <AdminDashboard />
-                </AdminRoute>
-              }
-            />
-            <Route path="/competitions" element={<CompetitionPage />} />
-            <Route path="/competitions/:competitionId" element={<CompetitionDetailPage />} />
-            <Route path="/register/:competitionId" element={<RegistrationPage />} />
-            <Route path="/judges" element={<Judges />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/profile/:id" element={<Profile />} />
-            <Route path="/feed" element={<Feed />} />
-            <Route path="/write" element={<Write />} />
-            <Route path="/post/:id" element={<Post />} />
-            <Route path="/terms" element={<Terms />} />
+            <Route path="/" element={<HomeRoute />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/post/:id" element={<Post />} />
+
+            {/* Protected routes for authenticated users */}
+            <Route element={<GeneralPrivateRoute />}>
+              <Route path="/feed" element={<Feed />} />
+              <Route path="/write" element={<Write />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/profile/:id" element={<Profile />} />
+              <Route path="/competitions" element={<CompetitionPage />} />
+              <Route path="/competitions/:competitionId" element={<CompetitionDetailPage />} />
+              <Route path="/register/:competitionId" element={<RegistrationPage />} />
+              <Route path="/judges" element={<Judges />} />
+              <Route path="/terms" element={<Terms />} />
+            </Route>
+
+            {/* Protected admin routes */}
+            <Route element={<AdminPrivateRoute />}>
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/users" element={<UserManagement />} />
+              <Route path="/admin/competitions" element={<CompetitionPage />} />
+              <Route path="/admin/judges" element={<Judges />} />
+              <Route path="/admin/profile/:id" element={<Profile />} />
+              <Route path="/admin/settings" element={<Settings />} />
+              <Route path="/admin/analytics" element={<Analytics />} />
+              <Route path="/admin/content-moderation" element={<ContentModeration />} />
+              <Route path="/admin/notifications" element={<Notifications />} />
+              <Route path="/admin/security-logs" element={<SecurityLogs />} />
+            </Route>
           </Routes>
         </div>
       </Router>

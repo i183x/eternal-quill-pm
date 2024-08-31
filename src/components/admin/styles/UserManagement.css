@@ -1,0 +1,292 @@
+/* Dark Mode Variables */
+:root {
+  --primary-bg-dark: #1E1E1E;
+  --secondary-bg-dark: #2A2A2A;
+  --text-color-dark: #E0E0E0;
+  --button-bg-dark: #3A3A3A;
+  --button-hover-bg-dark: #4A4A4A;
+  --border-color-dark: #3C3C3C;
+  --error-bg-dark: #FF4C4C; /* Error background color for dark mode */
+}
+
+/* Light Mode Variables */
+:root {
+  --primary-bg-light: #FFFFFF;
+  --secondary-bg-light: #F5F5F5;
+  --text-color-light: #333333;
+  --button-bg-light: #E0E0E0;
+  --button-hover-bg-light: #D0D0D0;
+  --border-color-light: #CCCCCC;
+  --error-bg-light: #FF4C4C; /* Error background color for light mode */
+}
+
+/* User Management Styles */
+.user-management {
+  padding: 20px;
+  background-color: var(--primary-bg-light);
+  color: var(--text-color-light);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark .user-management {
+  background-color: var(--primary-bg-dark);
+  color: var(--text-color-dark);
+}
+
+.user-management h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.user-management input[type="text"] {
+  padding: 10px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid var(--border-color-light);
+  border-radius: 4px;
+  background-color: var(--secondary-bg-light);
+  color: var(--text-color-light);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark .user-management input[type="text"] {
+  border-color: var(--border-color-dark);
+  background-color: var(--secondary-bg-dark);
+  color: var(--text-color-dark);
+}
+
+.user-management .sorting-controls {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.user-management button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--button-bg-light);
+  color: var(--text-color-light);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.user-management button:hover {
+  background-color: var(--button-hover-bg-light);
+}
+
+body.dark .user-management button {
+  background-color: var(--button-bg-dark);
+  color: var(--text-color-dark);
+}
+
+body.dark .user-management button:hover {
+  background-color: var(--button-hover-bg-dark);
+}
+
+.user-management table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-management th, .user-management td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color-light);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark .user-management th, body.dark .user-management td {
+  border-bottom: 1px solid var(--border-color-dark);
+}
+
+.user-management th {
+  background-color: var(--secondary-bg-light);
+}
+
+body.dark .user-management th {
+  background-color: var(--secondary-bg-dark);
+}
+
+.user-management tbody tr:hover {
+  background-color: var(--secondary-bg-light);
+}
+
+body.dark .user-management tbody tr:hover {
+  background-color: var(--secondary-bg-dark);
+}
+
+.user-management select {
+  padding: 5px;
+  border: 1px solid var(--border-color-light);
+  border-radius: 4px;
+  background-color: var(--secondary-bg-light);
+  color: var(--text-color-light);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark .user-management select {
+  border-color: var(--border-color-dark);
+  background-color: var(--secondary-bg-dark);
+  color: var(--text-color-dark);
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--button-bg-light);
+  color: var(--text-color-light);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: var(--button-hover-bg-light);
+}
+
+body.dark .pagination button {
+  background-color: var(--button-bg-dark);
+  color: var(--text-color-dark);
+}
+
+body.dark .pagination button:hover {
+  background-color: var(--button-hover-bg-dark);
+}
+
+/* Error Message Styling */
+.error-message {
+  color: var(--error-bg-light);
+  margin: 15px 0;
+}
+
+body.dark .error-message {
+  color: var(--error-bg-dark);
+}
+
+/* Loading Indicator */
+.loading-indicator {
+  font-size: 16px;
+  color: var(--text-color-light);
+  margin-top: 20px;
+  text-align: center;
+}
+
+body.dark .loading-indicator {
+  color: var(--text-color-dark);
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+  table thead {
+    display: none; /* Hide the header */
+  }
+
+  table,
+  table tbody,
+  table tr,
+  table td {
+    display: block;
+    width: 100%;
+  }
+
+  table tr {
+    margin-bottom: 15px;
+  }
+
+  table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 45%;
+    padding-left: 15px;
+    font-weight: bold;
+    text-align: left;
+  }
+}
+
+/* General Styles */
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.sorting-controls {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--accent-color);
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--button-hover-bg-color);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 8px 12px;
+}
+
+/* Dark Mode Adjustments */
+body.dark .user-management {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+body.dark input[type="text"] {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+  border-color: var(--secondary-color-dark);
+}
+
+body.dark table td {
+  color: var(--text-color-dark);
+  border-bottom-color: var(--secondary-color-dark);
+}
+
+body.dark button {
+  background-color: var(--button-bg-color-dark);
+}
+
+body.dark button:hover {
+  background-color: var(--button-hover-bg-color-dark);
+}
