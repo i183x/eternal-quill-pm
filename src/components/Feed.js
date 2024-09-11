@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { db } from '../firebase';
@@ -26,6 +26,7 @@ function Feed() {
   const [loading, setLoading] = useState(true);
   const [fetchingMore, setFetchingMore] = useState(false);
 
+  // Initial fetch for posts
   useEffect(() => {
     const fetchPosts = async () => {
       const q = query(
@@ -67,7 +68,8 @@ function Feed() {
     fetchPosts();
   }, []);
 
-  const fetchMorePosts = async () => {
+  // Fetch more posts when scrolling
+  const fetchMorePosts = useCallback(async () => {
     if (!lastDoc || fetchingMore) return;
 
     setFetchingMore(true);
@@ -107,7 +109,25 @@ function Feed() {
     });
 
     return () => unsubscribe();
-  };
+  }, [lastDoc, fetchingMore]);
+
+  // Detect when user is near the bottom of the page
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.innerHeight + document.documentElement.scrollTop;
+      const offsetHeight = document.documentElement.offsetHeight;
+
+      if (scrollPosition >= offsetHeight - 300 && !loading && !fetchingMore) {
+        fetchMorePosts();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [fetchMorePosts, loading, fetchingMore]);
 
   const truncateContentToLines = (content, maxLines) => {
     const sanitizedContent = sanitizeContent(content);
