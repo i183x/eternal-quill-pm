@@ -5,6 +5,7 @@ import { doc, getDoc, updateDoc, collection, addDoc, onSnapshot } from 'firebase
 import DOMPurify from 'dompurify';
 import { useAuth } from '../authContext';
 import LoginModal from './LoginModal';
+import { createNotification } from '../services/notificationsService'; // Import notification function
 import './styles/Post.css';
 
 function Post() {
@@ -65,6 +66,8 @@ function Post() {
       updatedLikes = updatedLikes.filter(like => like !== currentUser.uid);
     } else {
       updatedLikes.push(currentUser.uid);
+      // Trigger a notification for the post author after liking the post
+      await createNotification(post.userId, `${currentUser.displayName} liked your post`, "like", id, currentUser.uid);
     }
 
     setLikes(updatedLikes);
@@ -94,6 +97,10 @@ function Post() {
         userId: currentUser.uid,
         createdAt: new Date(),
       });
+
+      // Trigger a notification for the post author after a comment is submitted
+      await createNotification(post.userId, `${currentUser.displayName} commented on your post`, "comment", id, currentUser.uid);
+
       setNewComment('');
     } catch (error) {
       console.error("Error adding comment: ", error);

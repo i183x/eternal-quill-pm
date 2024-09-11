@@ -59,6 +59,8 @@ function CompetitionPage() {
 
   return (
     <div className="competition-page">
+      <h1> Ignore this page for now, it's under development!!</h1>
+
       <h2>Competitions</h2>
 
       <div className="ongoing-competitions">

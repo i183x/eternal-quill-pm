@@ -7,16 +7,40 @@
   --text-color: #212121;
   --navbar-bg-color: #3A3A3A;
   --navbar-text-color: #FFFFFF;
+  --timestamp-color: #888888;
 
   /* Dark Theme */
   --background-color-dark: #1E1E1E;
   --text-color-dark: #EEEEEE;
   --navbar-bg-color-dark: #1E1E1E;
   --navbar-text-color-dark: #EEEEEE;
+  --timestamp-color-dark: #999999;
   --link-color-dark: #FFA500;
   --link-hover-color-dark: #FF8C00;
   --button-bg-color-dark: #FFA500;
   --button-hover-bg-color-dark: #FF8C00;
+
+  /* Notification Colors */
+  --notification-bg: #FFFFFF;
+  --notification-border: #DDDDDD;
+  --notification-shadow: rgba(0, 0, 0, 0.1);
+  --unread-bg: #FFF7E6;
+  --read-bg: #F0F0F0;
+  --hover-bg: #F0E6D6;
+
+  /* Dark Notification */
+  --notification-bg-dark: #2B2B2B;
+  --notification-border-dark: #444444;
+  --notification-shadow-dark: rgba(0, 0, 0, 0.7);
+  --unread-bg-dark: #404040;
+  --read-bg-dark: #333333;
+  --hover-bg-dark: #595959;
+
+  /* Danger Colors */
+  --danger-color: #e60000;
+  --danger-hover-color: #cc0000;
+  --danger-color-dark: #ff4d4d;
+  --danger-hover-color-dark: #e60000;
 }
 
 /* Light Theme */
@@ -44,6 +68,27 @@ body.light .btn-signout {
   background-color: transparent;
 }
 
+body.light .timestamp {
+  color: var(--timestamp-color);
+}
+
+body.light .notification-item {
+  background-color: var(--notification-bg);
+  border-color: var(--notification-border);
+}
+
+body.light .notification-item.unread {
+  background-color: var(--unread-bg);
+}
+
+body.light .notification-item.read {
+  background-color: var(--read-bg);
+}
+
+body.light .notification-item:hover {
+  background-color: var(--hover-bg);
+}
+
 /* Dark Theme */
 body.dark {
   background-color: var(--background-color-dark);
@@ -67,6 +112,27 @@ body.dark .btn-theme-toggle,
 body.dark .btn-signout {
   color: var(--navbar-text-color-dark);
   background-color: transparent;
+}
+
+body.dark .timestamp {
+  color: var(--timestamp-color-dark);
+}
+
+body.dark .notification-item {
+  background-color: var(--notification-bg-dark);
+  border-color: var(--notification-border-dark);
+}
+
+body.dark .notification-item.unread {
+  background-color: var(--unread-bg-dark);
+}
+
+body.dark .notification-item.read {
+  background-color: var(--read-bg-dark);
+}
+
+body.dark .notification-item:hover {
+  background-color: var(--hover-bg-dark);
 }
 
 /* Toggle Button Styles */
@@ -110,4 +176,84 @@ body.dark .btn-signout {
 
 .fa-sun {
   color: #FF8C00;
+}
+
+/* Notifications Floating Bell */
+.floating-bell {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.floating-bell:hover {
+  transform: scale(1.1);
+}
+
+/* Notification Red Dot */
+.red-dot {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  z-index: 2001;
+}
+
+/* Notification Items */
+.notification-item {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+
+.notification-item:hover {
+  transform: scale(1.03);
+}
+
+/* Timestamp styling */
+.timestamp {
+  font-size: 12px;
+  color: var(--timestamp-color);
+  margin-left: auto;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .floating-bell {
+    width: 50px;
+    height: 50px;
+  }
+
+  .notifications-modal,
+  .notifications-dropdown-up {
+    width: 90vw;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: 60vh;
+  }
+
+  .notification-item p {
+    font-size: 14px;
+  }
+
+  .notification-item .timestamp {
+    font-size: 11px;
+  }
 }

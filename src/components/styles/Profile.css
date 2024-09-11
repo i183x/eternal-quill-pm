@@ -1,5 +1,3 @@
-/* ./styles/Profile.css */
-
 /* Profile section container */
 .profile {
   max-width: 1000px;
@@ -21,8 +19,52 @@
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--accent-color);
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
+/* Profile picture hover effect */
+.profile-picture-container:hover img {
+  transform: scale(1.05);
+  border-color: var(--button-hover-bg-color);
+}
+
+/* Profile Picture Upload Overlay */
+.profile-picture-container {
+  position: relative;
+  width: 150px;
+  margin: 0 auto 20px;
+}
+
+.profile-picture-label .overlay {
+  display: none;
+}
+
+.profile-picture-container:hover .overlay .always-visible {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+/* Ensuring "Change Picture" is visible during edit mode */
+.always-visible .overlay {
+  display: flex; /* Ensure it's always visible in edit mode */
+}
+
+.profile-picture-input {
+  display: none;
+}
+
+/* Profile Header */
 .profile h2 {
   font-size: 2.5rem;
   text-align: center;
@@ -53,12 +95,14 @@
   cursor: pointer;
   font-size: 1rem;
   text-align: center;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .profile button:hover {
   background-color: var(--button-hover-bg-color);
   transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Posts section */
@@ -163,6 +207,65 @@
   margin: 10px 0;
 }
 
+/* Modal Styling */
+.delete-confirmation-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  width: 90%;
+  max-width: 500px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -45%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.delete-confirmation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.delete-confirmation-buttons button {
+  width: 48%;
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+  animation: fadeInBackdrop 0.3s ease;
+}
+
+@keyframes fadeInBackdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Dark Mode Adjustments */
 body.dark .profile {
   background-color: var(--background-color-dark);
@@ -220,54 +323,41 @@ body.dark .profile ul li a:hover {
   color: var(--button-hover-bg-color-dark);
 }
 
-body.dark .profile ul li button {
-  background-color: var(--danger-color-dark);
-  color: var(--text-color-dark);
-}
-
-body.dark .profile ul li button:hover {
-  background-color: var(--danger-hover-bg-color-dark);
-}
-
-body.dark .profile input[type="text"],
-body.dark .profile textarea {
+body.dark .delete-confirmation-modal {
   background-color: var(--background-color-dark);
   color: var(--text-color-dark);
-  border-color: var(--secondary-color-dark);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
 }
 
 
-/* ./styles/Profile.css */
-
-/* Delete Post button */
-.profile ul li button {
-  background-color: #ff4d4d; /* Soft red for danger button */
-  color: #ffffff; /* White text color for visibility */
-  margin-top: 10px;
+/* Danger buttons for destructive actions (Delete Post/Profile) */
+button.danger {
+  background-color: var(--danger-color); /* Bright red to signal danger */
+  color: #fff; /* White text for contrast */
   border: none;
   border-radius: 8px;
   padding: 10px 20px;
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 12px rgba(255, 77, 77, 0.2); /* Soft shadow to lift the button */
+  box-shadow: 0 4px 12px rgba(230, 0, 0, 0.2); /* Soft shadow to lift the button */
 }
 
-.profile ul li button:hover {
-  background-color: #e60000; /* Slightly darker red on hover */
+button.danger:hover {
+  background-color: var(--danger-hover-color); /* Darker red for hover */
   transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(230, 0, 0, 0.4); /* Deeper shadow on hover */
+  box-shadow: 0 6px 16px rgba(204, 0, 0, 0.4); /* Deeper shadow on hover */
 }
 
-/* Dark Mode adjustments for Delete Post button */
-body.dark .profile ul li button {
-  background-color: #e60000; /* Stronger red for dark mode */
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(230, 0, 0, 0.2);
+/* Dark mode adjustments */
+body.dark button.danger {
+  background-color: #ff4d4d; /* Softer red in dark mode */
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(255, 77, 77, 0.2);
 }
 
-body.dark .profile ul li button:hover {
-  background-color: #cc0000; /* Even darker red on hover in dark mode */
+body.dark button.danger:hover {
+  background-color: #e60000; /* Brighter red on hover in dark mode */
   transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(204, 0, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(230, 0, 0, 0.4);
 }

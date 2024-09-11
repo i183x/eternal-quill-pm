@@ -5,12 +5,16 @@ import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import './styles/Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { faMoon, faSun, faBell } from '@fortawesome/free-solid-svg-icons';
+import Notifications from './Notifications';
 
 function Navbar() {
   const { currentUser } = useAuth();
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [hasUnreadNotifications, setHasUnreadNotifications] = useState(false); // Red dot for unread notifications
 
   useEffect(() => {
     document.body.className = theme; // Apply the theme to the body
@@ -33,7 +37,56 @@ function Navbar() {
 
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
-  const closeNav = () => setIsNavCollapsed(true);
+  const closeNav = () => {
+    setIsNavCollapsed(true);
+    document.body.classList.remove('nav-open');
+  };
+
+  useEffect(() => {
+    if (!isNavCollapsed) {
+      document.body.classList.add('nav-open');
+    } else {
+      document.body.classList.remove('nav-open');
+    }
+  }, [isNavCollapsed]);
+
+  // Detect if the device is mobile
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize(); // Check initially
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const toggleNotifications = () => setShowNotifications(!showNotifications);
+
+  const closeNotifications = () => setShowNotifications(false);
+
+  // Handle click outside notifications for mobile view
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      const notificationElement = document.querySelector('.notifications-modal');
+      if (notificationElement && !notificationElement.contains(e.target)) {
+        setShowNotifications(false);
+      }
+    };
+
+    if (showNotifications) {
+      document.addEventListener('click', handleClickOutside);
+    } else {
+      document.removeEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [showNotifications]);
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -80,6 +133,18 @@ function Navbar() {
                     Profile
                   </Link>
                 </li>
+
+                {/* Notifications Icon (shown only in desktop) */}
+                {!isMobile && (
+                  <li className="nav-item notifications">
+                    <button className="nav-link notification-bell" onClick={toggleNotifications}>
+                      <FontAwesomeIcon icon={faBell} />
+                      {hasUnreadNotifications && <span className="red-dot"></span>}
+                    </button>
+                    {showNotifications && <Notifications onClose={closeNotifications} />} {/* Show Notifications */}
+                  </li>
+                )}
+
                 <li className="nav-item">
                   <button onClick={handleSignOut} className="nav-link btn-signout">
                     Sign Out
@@ -110,6 +175,15 @@ function Navbar() {
           </ul>
         </div>
       </div>
+
+      {/* Floating Bell Icon for Mobile */}
+      {isMobile && (
+        <button className="floating-bell" onClick={toggleNotifications}>
+          <FontAwesomeIcon icon={faBell} />
+          {hasUnreadNotifications && <span className="red-dot"></span>}
+          {showNotifications && <Notifications onClose={closeNotifications} />}
+        </button>
+      )}
     </nav>
   );
 }

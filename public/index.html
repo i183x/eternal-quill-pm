@@ -1,26 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Basic Meta Tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Your app description here">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Framing the literature in every aspect of life, chasing Dreams Destiny and Divinity till eternity. Discover a world of words and emotions with Eternal Quill.">
+    <meta name="keywords" content="Eternal Quill, literature, writers, readers, writing, stories, poems, articles, blog, reading, community, authors">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Eternal Quill">
+
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="Eternal Quill - A World of Writers and Readers">
+    <meta property="og:description" content="Framing the literature in every aspect of life, chasing Dreams Destiny and Divinity till eternity.">
+    <meta property="og:image" content="/static/images/og-image.jpg"> <!-- Replace with your OG image URL -->
+    <meta property="og:url" content="https://eternalquill.com">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Eternal Quill">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Eternal Quill - A World of Writers and Readers">
+    <meta name="twitter:description" content="Framing the literature in every aspect of life, chasing Dreams Destiny and Divinity till eternity.">
+    <meta name="twitter:image" content="/static/images/twitter-card.jpg"> <!-- Replace with your Twitter image URL -->
+    <meta name="twitter:site" content="@EternalQuill">
+
+    <!-- Favicon and Icons -->
+    <link rel="icon" href="/static/icons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json"> <!-- Add a manifest file for PWA support -->
+
+    <!-- Theme Color for Mobile Browsers -->
     <meta name="theme-color" content="#000000">
-    <base href="/">
-    <title>Eternal Quill</title>
-    <link href="/static/css/main.css" rel="stylesheet">
-    <!-- Bootstrap CSS -->
+
+    <!-- Preload Key Assets -->
+    <link rel="preload" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="https://code.jquery.com/jquery-3.5.1.slim.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" as="script">
+    <link rel="preload" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" as="script">
+
+    <!-- Critical CSS -->
+    <link href="/static/css/critical.css" rel="stylesheet">
+
+    <!-- External CSS (Bootstrap) -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Title -->
+    <title>Eternal Quill - A World of Writers and Readers</title>
 
+    <!-- JavaScript -->
+    <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- PWA Support -->
+    <link rel="manifest" href="/manifest.json"> <!-- Ensure manifest.json is properly configured -->
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script src="/static/js/bundle.js"></script>
+
+    <!-- Main JS -->
+    <script src="/static/js/main.js" defer></script>
   </body>
 </html>

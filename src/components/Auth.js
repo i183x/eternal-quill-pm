@@ -21,6 +21,7 @@ function Auth() {
   const [profilePicturePreview, setProfilePicturePreview] = useState(null);
   const navigate = useNavigate();
 
+  // Preview Profile Picture
   useEffect(() => {
     if (profilePicture) {
       const reader = new FileReader();
@@ -33,6 +34,7 @@ function Auth() {
     }
   }, [profilePicture]);
 
+  // Handle authentication (Signup/Login)
   const handleAuth = async () => {
     setErrorMessage('');
     setLoading(true);
@@ -184,18 +186,24 @@ function Auth() {
               onChange={(e) => setBio(e.target.value)}
               maxLength={300}
             />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setProfilePicture(e.target.files[0])}
-            />
-            {profilePicturePreview && (
-              <img
-                src={profilePicturePreview}
-                alt="Profile Preview"
-                className="profile-preview"
+            <div className="profile-picture-container">
+              <label htmlFor="profile-picture" className="profile-picture-label">
+                Upload Profile Picture
+              </label>
+              <input
+                type="file"
+                id="profile-picture"
+                accept="image/*"
+                onChange={(e) => setProfilePicture(e.target.files[0])}
               />
-            )}
+              {profilePicturePreview && (
+                <img
+                  src={profilePicturePreview}
+                  alt="Profile Preview"
+                  className="profile-preview"
+                />
+              )}
+            </div>
             <div className="terms-container">
               <input
                 type="checkbox"

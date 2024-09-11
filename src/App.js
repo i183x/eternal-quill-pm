@@ -36,10 +36,20 @@ function App() {
 
             {/* Protected routes for authenticated users */}
             <Route element={<GeneralPrivateRoute />}>
-              <Route path="/feed" element={<Feed />} />
+              <Route
+                path="/feed"
+                element={
+                    <Feed />
+                }
+              />
+              <Route
+                path="/profile/:id"
+                element={
+                    <Profile />
+                }
+              />
               <Route path="/write" element={<Write />} />
               <Route path="/users" element={<Users />} />
-              <Route path="/profile/:id" element={<Profile />} />
               <Route path="/competitions" element={<CompetitionPage />} />
               <Route path="/competitions/:competitionId" element={<CompetitionDetailPage />} />
               <Route path="/register/:competitionId" element={<RegistrationPage />} />
@@ -53,7 +63,12 @@ function App() {
               <Route path="/admin/users" element={<UserManagement />} />
               <Route path="/admin/competitions" element={<CompetitionPage />} />
               <Route path="/admin/judges" element={<Judges />} />
-              <Route path="/admin/profile/:id" element={<Profile />} />
+              <Route
+                path="/admin/profile/:id"
+                element={
+                    <Profile />
+                }
+              />
               <Route path="/admin/settings" element={<Settings />} />
               <Route path="/admin/analytics" element={<Analytics />} />
               <Route path="/admin/content-moderation" element={<ContentModeration />} />

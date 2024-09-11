@@ -1,0 +1,212 @@
+:root {
+  /* Base Colors */
+  --primary-color: #3A3A3A;
+  --secondary-color: #888888;
+  --accent-color: #FFA500;
+  --background-color: #F5F5F5;
+  --text-color: #212121;
+  --navbar-bg-color: #3A3A3A;
+  --navbar-text-color: #FFFFFF;
+
+  /* Notification-specific colors */
+  --notification-bg: #fff;
+  --notification-border: #ddd;
+  --unread-bg: #f0f8ff;
+  --read-bg: #e6e6e6;
+  --hover-bg: #d3d3d3;
+  --timestamp-color: #888;
+
+  /* Dark Theme */
+  --background-color-dark: #1E1E1E;
+  --text-color-dark: #EEEEEE;
+  --navbar-bg-color-dark: #1E1E1E;
+  --navbar-text-color-dark: #EEEEEE;
+  --link-color-dark: #FFA500;
+  --link-hover-color-dark: #FF8C00;
+  --button-bg-color-dark: #FFA500;
+  --button-hover-bg-color-dark: #FF8C00;
+}
+
+body.light .notification-item {
+  color: #333;
+}
+
+body.light .timestamp {
+  color: #666;
+}
+
+body.dark .notification-item {
+  color: #eaeaea;
+}
+
+body.dark .timestamp {
+  color: #999;
+}
+
+/* Floating bell for mobile */
+.floating-bell {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.floating-bell:hover {
+  transform: scale(1.1);
+}
+
+/* Red dot indicator for unread notifications */
+.red-dot {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  z-index: 2001;
+}
+
+/* Notifications dropdown for desktop */
+.notifications-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: var(--notification-bg);
+  border: 1px solid var(--notification-border);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 1000;
+  width: 320px;
+  transition: all 0.2s ease;
+}
+
+/* Dropdown-up for mobile to ensure it stays above the bell */
+.notifications-dropdown-up {
+  position: fixed;
+  bottom: 80px;
+  right: 10px;
+  background-color: var(--notification-bg);
+  border: 1px solid var(--notification-border);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  width: 90vw;
+  max-height: 60vh;
+  overflow-y: auto;
+  z-index: 2001;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Notifications modal for mobile view */
+.notifications-modal {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: var(--notification-bg);
+  border: 1px solid var(--notification-border);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  width: 90vw;
+  max-height: 60vh;
+  overflow-y: auto;
+  z-index: 2001;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: bottom 0.3s ease;
+}
+
+.notifications-modal.dropdown-up {
+  bottom: auto;
+  top: 80px;
+}
+
+/* Styling for each notification item */
+.notification-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 10px;
+  background-color: var(--notification-bg);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.notification-item.unread {
+  background-color: var(--unread-bg);
+  font-weight: bold;
+}
+
+.notification-item.read {
+  background-color: var(--read-bg);
+}
+
+.notification-item:hover {
+  background-color: var(--hover-bg);
+  transform: scale(1.03);
+}
+
+/* Notification text styling */
+.notification-item p {
+  margin: 0;
+  font-size: 16px;
+  color: var(--text-color);
+}
+
+/* Notification icon styling */
+.notification-item .icon {
+  margin-right: 12px;
+  font-size: 20px;
+  color: var(--accent-color);
+}
+
+/* Timestamp styling */
+.notification-item .timestamp {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--timestamp-color);
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .floating-bell {
+    width: 50px;
+    height: 50px;
+  }
+
+  .notifications-modal,
+  .notifications-dropdown-up {
+    width: 92vw;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: 60vh;
+  }
+
+  .notifications-modal.dropdown-up {
+    top: 20px;
+  }
+
+  .notification-item p {
+    font-size: 14px;
+  }
+
+  .notification-item .timestamp {
+    font-size: 11px;
+  }
+}
