@@ -1,3 +1,5 @@
+// src/components/Notifications.js
+
 import { useState, useEffect, useRef } from 'react';
 import { collection, query, onSnapshot, orderBy, updateDoc, doc, getDoc, limit, startAfter } from 'firebase/firestore';
 import { db } from '../firebase';

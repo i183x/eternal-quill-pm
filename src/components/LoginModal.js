@@ -1,3 +1,5 @@
+// src/components/LoginModal.js
+
 import React, { useState } from 'react';
 import { useAuth } from '../authContext';
 import { signInWithEmailAndPassword } from 'firebase/auth';

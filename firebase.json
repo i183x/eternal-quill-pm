@@ -13,5 +13,11 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "functions": {
+    "source": "firebase-functions",
+    "runtime": "nodejs18",
+    "params": "params.json",
+     "defaultRegion": "asia-south1"
   }
 }
