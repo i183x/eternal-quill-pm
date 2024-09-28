@@ -1,0 +1,177 @@
+/* ./styles/Users.css */
+
+/* Users container */
+.users {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Title styling */
+.users h2 {
+  color: var(--text-color);
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+/* User list */
+.users ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* User list item */
+.users li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  border: 1px solid var(--secondary-color);
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for user list item */
+.users li:hover {
+  background-color: var(--light-color);
+  color: var(--text-color);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* User profile picture */
+.users img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+/* Username link */
+.users a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.users li:hover a {
+  color: var(--text-color);
+}
+
+/* Follow button */
+.follow-btn {
+  padding: 6px 12px;
+  background-color: var(--button-bg-color-dark);
+  color: var(--background-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.follow-btn:hover {
+  background-color: var(--button-hover-bg-color);
+  color: var(--background-color);
+}
+
+/* Dark Mode Adjustments */
+body.dark .users {
+  background-color: var(--background-color-dark);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+body.dark .users h2 {
+  color: var(--text-color-dark);
+}
+
+body.dark .users li {
+  background-color: var(--background-color-dark);
+  border-color: var(--secondary-color-dark);
+}
+
+body.dark .users li:hover {
+  background-color: var(--light-color-dark);
+  color: var(--text-color-dark);
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.15);
+}
+
+body.dark .users a {
+  color: var(--link-color-dark);
+}
+
+body.dark .users li:hover a {
+  color: var(--text-color-dark);
+}
+
+body.dark .follow-btn {
+  background-color: var(--button-bg-color-dark);
+  color: var(--text-color-dark);
+}
+
+body.dark .follow-btn:hover {
+  background-color: var(--button-hover-bg-color-dark);
+  color: var(--text-color-dark);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .users li {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    background-image: url('../../assets/images/light-background.png'); /* Light mode background image for mobile */
+    background-size: cover;
+  }
+
+  .users img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+
+  .users a {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: auto;
+  }
+
+  .follow-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+
+  .users li:hover {
+    transform: scale(1.02);
+    background-color: var(--light-color);
+    color: var(--text-color);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .users li:active {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Dark mode mobile adjustments */
+  body.dark .users li {
+    background-image: url('../../assets/images/dark-background.png'); /* Dark mode background image for mobile */
+  }
+
+  body.dark .users li:hover {
+    background-color: var(--light-color-dark);
+    color: var(--text-color-dark);
+  }
+}
