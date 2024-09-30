@@ -20,6 +20,7 @@ import Judges from './components/Judges/Judges';
 import CompetitionPage from './components/Competitions/CompetitionPage';
 import CompetitionDetailPage from './components/Competitions/CompetitionDetailPage';
 import RegistrationPage from './components/Competitions/RegistrationPage';
+import DemoLogin from './components/Auth/DemoLogin';
 
 // Admin Components
 import AdminDashboard from './components/Admin/AdminDashboard/AdminDashboard';
@@ -33,7 +34,9 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeRoute />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/demo-login" element={<DemoLogin />} />
             <Route path="/post/:id" element={<Post />} />
+            <Route path="/terms" element={<Terms />} />
 
             {/* Protected routes for authenticated users */}
             <Route element={<GeneralPrivateRoute />}>
@@ -45,7 +48,6 @@ function App() {
               <Route path="/competitions/:competitionId" element={<CompetitionDetailPage />} />
               <Route path="/register/:competitionId" element={<RegistrationPage />} />
               <Route path="/judges" element={<Judges />} />
-              <Route path="/terms" element={<Terms />} />
             </Route>
 
             {/* Protected admin routes */}
