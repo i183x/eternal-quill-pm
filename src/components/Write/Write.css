@@ -1,4 +1,4 @@
-/* ./styles/Write.css */
+/* ./src/styles/Write.css */
 
 /* Container styling */
 .write {
@@ -7,8 +7,13 @@
   padding: 20px;
   background-color: var(--background-color);
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--card-shadow-light);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark .write {
+  background-color: var(--background-color-dark);
+  box-shadow: var(--card-shadow-dark);
 }
 
 /* Title styling */
@@ -20,6 +25,10 @@
   text-align: center;
   transition: color 0.3s ease;
   font-family: 'Merriweather', serif;
+}
+
+body.dark .write h2 {
+  color: var(--text-color-dark);
 }
 
 /* Form styling */
@@ -35,9 +44,23 @@
   border: 1px solid var(--secondary-color);
   border-radius: 6px;
   font-size: 18px;
-  background-color: var(--light-color);
+  background-color: var(--input-background);
   color: var(--text-color);
   transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark .write input[type="text"] {
+  background-color: var(--input-background-dark);
+  color: var(--text-color-dark);
+  border-color: var(--secondary-color-dark);
+}
+
+.write input[type="text"]::placeholder {
+  color: var(--secondary-color);
+}
+
+body.dark .write input[type="text"]::placeholder {
+  color: var(--secondary-color-dark);
 }
 
 /* ReactQuill editor styling */
@@ -46,9 +69,14 @@
   margin-bottom: 15px;
   direction: ltr;
   text-align: left;
-  background-color: var(--light-color);
+  background-color: var(--input-background);
   border-radius: 6px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark .write .ql-container {
+  background-color: var(--input-background-dark);
+  border-color: var(--secondary-color-dark);
 }
 
 .write .ql-editor {
@@ -59,6 +87,21 @@
   transition: color 0.3s ease;
 }
 
+body.dark .write .ql-editor {
+  color: var(--text-color-dark);
+}
+
+.write .ql-toolbar {
+  background-color: var(--background-color);
+  border: 1px solid var(--secondary-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark .write .ql-toolbar {
+  background-color: var(--background-color-dark);
+  border-color: var(--secondary-color-dark);
+}
+
 /* Card-Based Layout */
 .write form > * {
   margin-bottom: 15px;
@@ -67,6 +110,10 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark .write form > * {
+  background-color: var(--background-color-dark);
 }
 
 /* Progress Indicator */
@@ -86,11 +133,15 @@
   transition: color 0.3s ease;
 }
 
+body.dark .write p {
+  color: var(--text-color);
+}
+
 /* Submit button styling */
 .write button[type="submit"] {
   padding: 12px 20px;
   background-color: var(--button-bg-color);
-  color: var(--text-color-dark);
+  color: #fff; /* Changed from var(--text-color-dark) to #fff for better contrast */
   border: none;
   border-radius: 6px;
   font-size: 16px;
@@ -105,6 +156,14 @@
 
 .write button[type="submit"]:active {
   transform: scale(0.98);
+}
+
+body.dark .write button[type="submit"] {
+  background-color: var(--button-bg-color-dark);
+}
+
+body.dark .write button[type="submit"]:hover {
+  background-color: var(--button-hover-bg-color-dark);
 }
 
 /* Auto-Save Feedback */
@@ -127,56 +186,6 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-/* Dark Mode Specific Adjustments */
-body.dark .write {
-  background-color: var(--background-color-dark);
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-}
-
-body.dark .write h2 {
-  color: var(--text-color-dark);
-}
-
-body.dark .write input[type="text"] {
-  background-color: var(--input-background-dark); /* Improved background color for input fields */
-  color: var(--text-color-dark);
-  border-color: var(--secondary-color-dark);
-}
-
-body.dark .write input[type="text"]::placeholder {
-  color: var(--secondary-color-dark);
-}
-
-body.dark .write .ql-container {
-  background-color: var(--input-background-dark); /* Improved background color for the editor */
-  border-color: var(--secondary-color-dark);
-}
-
-body.dark .write .ql-editor {
-  color: var(--text-color-dark);
-}
-
-body.dark .write .ql-editor::before {
-  color: var(--secondary-color-dark);
-}
-
-body.dark .write .ql-toolbar {
-  background-color: var(--input-background-dark);
-  border-color: var(--secondary-color-dark);
-}
-
-body.dark .write p {
-  color: var(--secondary-color-dark);
-}
-
-body.dark .write button[type="submit"] {
-  background-color: var(--button-bg-color-dark);
-}
-
-body.dark .write button[type="submit"]:hover {
-  background-color: var(--button-hover-bg-color-dark);
 }
 
 /* Responsive adjustments */
@@ -203,13 +212,17 @@ body.dark .write button[type="submit"]:hover {
   }
 }
 
-/* Character count styling */
+/* Character count container styling */
 .write .character-count-container {
   padding: 10px;
   border-radius: 6px;
-  background-color: var(--light-color);
+  background-color: var(--background-color);
   text-align: right;
   transition: background-color 0.3s ease;
+}
+
+body.dark .write .character-count-container {
+  background-color: var(--background-color-dark);
 }
 
 .write p {
@@ -218,11 +231,6 @@ body.dark .write button[type="submit"]:hover {
   transition: color 0.3s ease;
 }
 
-/* Dark Mode Specific Adjustments */
-body.dark .write .character-count-container {
-  background-color: var(--background-color-dark); /* Darker background for character count section */
-}
-
 body.dark .write p {
-  color: var(--text-color); /* White text for better visibility in dark mode */
+  color: var(--text-color);
 }

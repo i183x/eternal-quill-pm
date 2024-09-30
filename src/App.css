@@ -1,5 +1,7 @@
+/* ./src/App.css */
+
 :root {
-  /* Base Colors */
+  /* Base Colors for Light Mode */
   --primary-color: #4CAF50; /* Fresh green for primary accents */
   --secondary-color: #9E9E9E; /* Neutral gray for secondary elements */
   --accent-color: #FFC107; /* Bright yellow for call-to-action buttons */
@@ -8,6 +10,10 @@
   --navbar-bg-color: #388E3C; /* A deeper green for the navbar in light mode */
   --navbar-text-color: #FFFFFF; /* White text for the navbar */
 
+  /* Button Colors for Light Mode */
+  --button-bg-color: #FF9800; /* Bright orange for buttons in light mode */
+  --button-hover-bg-color: #F57C00; /* Darker orange for button hover in light mode */
+
   /* Dark Mode Colors */
   --background-color-dark: #1B1B1B; /* Deep dark background */
   --text-color-dark: #E0E0E0; /* Light gray text for readability */
@@ -15,22 +21,40 @@
   --navbar-text-color-dark: #E0E0E0; /* Light gray text for the navbar */
   --link-color-dark: #FFEB3B; /* Bright yellow for links */
   --link-hover-color-dark: #FFC107; /* Soft yellow hover for links */
-  --button-bg-color-dark: #FF5722; /* Warm orange for buttons */
-  --button-hover-bg-color-dark: #E64A19; /* Slightly darker orange for button hover */
+  --button-bg-color-dark: #FF5722; /* Warm orange for buttons in dark mode */
+  --button-hover-bg-color-dark: #E64A19; /* Slightly darker orange for button hover in dark mode */
 
   /* Shadows */
   --card-shadow-light: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for light mode */
   --card-shadow-dark: 0 4px 10px rgba(0, 0, 0, 0.4); /* Darker shadow for dark mode */
+
+  /* Input Backgrounds */
+  --input-background-light: #FFFFFF; /* White background for inputs in light mode */
+  --input-background-dark: #37474F; /* Darker background for inputs in dark mode */
 }
 
 body.light {
   background-color: var(--background-color);
   color: var(--text-color);
+
+  /* Override Button Colors for Light Mode */
+  --button-bg-color: #FF9800; /* Ensure consistency */
+  --button-hover-bg-color: #F57C00;
+
+  /* Input Background */
+  --input-background: var(--input-background-light);
 }
 
 body.dark {
   background-color: var(--background-color-dark);
   color: var(--text-color-dark);
+
+  /* Override Button Colors for Dark Mode */
+  --button-bg-color: var(--button-bg-color-dark);
+  --button-hover-bg-color: var(--button-hover-bg-color-dark);
+
+  /* Input Background */
+  --input-background: var(--input-background-dark);
 }
 
 .navbar {
@@ -63,16 +87,32 @@ body.dark .nav-link:hover {
 
 /* Button Styles */
 button {
-  background-color: var(--button-bg-color-dark);
+  background-color: var(--button-bg-color);
   color: #fff;
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 button:hover {
-  background-color: var(--button-hover-bg-color-dark);
+  background-color: var(--button-hover-bg-color);
+}
+
+/* Focus States for Accessibility */
+button:focus,
+.nav-link:focus,
+.read-more:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+body.dark button:focus,
+body.dark .nav-link:focus,
+body.dark .read-more:focus {
+  outline: 2px solid var(--link-color-dark);
+  outline-offset: 2px;
 }
 
 /* Feed and Post Cards */
@@ -144,4 +184,14 @@ body.dark .read-more {
   .nav-item {
     margin-bottom: 10px;
   }
+
+  /* Additional responsive adjustments can be added here */
+}
+
+@media (max-width: 600px) {
+  .feed {
+    padding: 5px;
+  }
+
+  /* Further small-screen adjustments can be added here */
 }
